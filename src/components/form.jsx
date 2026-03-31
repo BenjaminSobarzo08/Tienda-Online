@@ -1,6 +1,6 @@
 import '../styles/components/form.css'
 import { useState } from 'react';
-const Form = ({toggleFunction})=>{
+const Form = ({ toggleFunction, onProductCreated })=>{
     const [nombre, setNombre] = useState('');
     const [categoria, setCategoria] = useState('');
     const [descripcion, setDescripcion] = useState('');
@@ -37,6 +37,7 @@ const Form = ({toggleFunction})=>{
           const response = await fetch('/api/productos', {
             method: 'POST',
             body: formData, 
+            credentials: 'include',
           });
     
           // Verificar si la respuesta fue exitosa
@@ -50,6 +51,9 @@ const Form = ({toggleFunction})=>{
             setDescripcion('')
             setStock('')
             setImagenes([]);
+            if (onProductCreated) {
+              onProductCreated(data.producto);
+            }
             toggleFunction()
             
           } else {

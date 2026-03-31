@@ -27,6 +27,7 @@ const FormEdit = ({ editingProduct, setProducts, products, closeForm }) => {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+        credentials: "include",
       });
 
       if (!response.ok) throw new Error("Error al actualizar el producto");
