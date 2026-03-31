@@ -1,127 +1,355 @@
-button{
+button {
     cursor: pointer;
 }
-.AdminContainer{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+
+.AdminContainer {
+    --admin-bg: #eae3e3;
+    --admin-surface: #ffffff;
+    --admin-border: #d7dede;
+    --admin-text: #2f3b45;
+    --admin-muted: #6e7c87;
+    --admin-primary: #0780a3;
+    --admin-primary-soft: #e8f7fb;
+    --admin-accent: #f0a020;
+    --admin-accent-soft: #fff4df;
+    --admin-danger: #d35b5b;
     min-height: 100vh;
+    padding: 32px 24px 48px;
+    background: var(--admin-bg);
+    color: var(--admin-text);
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.admin-shell {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 24px;
+    max-width: 1380px;
+    margin: 0 auto;
+}
 
-.AdminContainer aside{
+.profile-card,
+.table-card {
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(7, 128, 163, 0.05);
+}
+
+.profile-card {
+    position: sticky;
+    top: 24px;
+    padding: 24px;
+}
+
+.profile-badge {
+    width: 64px;
+    height: 64px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: var(--admin-primary);
+    color: #ffffff;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.eyebrow {
+    margin: 0 0 6px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--admin-primary);
+    font-weight: 700;
+}
+
+.profile-copy h2,
+.admin-header h1,
+.table-header h3,
+.empty-state h3 {
+    margin: 0;
+}
+
+.profile-copy h2 {
+    font-size: 1.8rem;
+}
+
+.profile-copy p,
+.admin-subtitle,
+.table-header span,
+.profile-message,
+.profile-stats span,
+.no-image,
+.empty-state p {
+    color: var(--admin-muted);
+}
+
+.profile-copy p {
+    margin-top: 8px;
+}
+
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.profile-stats div {
+    padding: 14px;
+    background: #f8fbfc;
+    border: 1px solid var(--admin-border);
+    border-radius: 14px;
+}
+
+.profile-stats strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1.3rem;
+    color: var(--admin-text);
+}
+
+.profile-form {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 250px;
-    align-items: center;
-    justify-content: center;
+    gap: 14px;
 }
-.AdminContainer aside h2{
-    margin: 30px;
-}
-#add{
+
+.profile-form label {
     display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #e46d6d;
-    color: #f4f4f4;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--admin-text);
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--admin-border);
+    background: #ffffff;
+    color: var(--admin-text);
+    font-size: 0.98rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-form input:focus {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px rgba(7, 128, 163, 0.12);
+}
+
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.primary-btn,
+.ghost-btn,
+#delete,
+#edit {
     border: none;
-    font-size: 1.1rem;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
-#add img{
-    width: 30px;
-    height: 30px;
+.primary-btn {
+    background: var(--admin-primary);
+    color: #ffffff;
 }
 
-.AdminContainer section{
-    width: 100%;
+.ghost-btn {
+    background: #ffffff;
+    color: var(--admin-primary);
+    border: 1px solid var(--admin-border);
+}
+
+.primary-btn:hover,
+.ghost-btn:hover,
+#delete:hover,
+#edit:hover {
+    transform: translateY(-1px);
+}
+
+.primary-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.profile-message {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 12px;
+    font-size: 0.92rem;
+}
+
+.profile-message.success {
+    background: var(--admin-primary-soft);
+    color: var(--admin-primary);
+}
+
+.profile-message.error {
+    background: #fdecec;
+    color: var(--admin-danger);
+}
+
+.admin-main {
     display: flex;
     flex-direction: column;
+    gap: 20px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    padding: 8px 2px;
+}
+
+.admin-header h1 {
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: var(--admin-text);
+}
+
+.admin-subtitle {
+    max-width: 620px;
+    margin: 10px 0 0;
+    line-height: 1.5;
+}
+
+.table-card {
+    overflow: hidden;
+}
+
+.table-header {
+    display: flex;
     align-items: center;
-
-}
-.AdminContainer table{
-    max-width: 1300px;
-    margin-bottom: 30px;
-    background-color: #ccc;
-    border-collapse: separate; /* Asegura que el espaciado entre celdas se aplique */
-    border-spacing: 10px; 
-    border-radius: 20px;
-}
-.AdminContainer table img{
-    cursor: pointer;
-}
-.AdminContainer table thead { 
-    color: #676565; /* Texto blanco */
-    padding: 20px;
-    text-align: left; 
-    /*border-collapse: collapse; */
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 24px 14px;
 }
 
-.AdminContainer table tbody {
-    border-spacing: 10px;
-     /* Espaciado solo en el cuerpo de la tabla */
+.table-wrapper {
+    overflow-x: auto;
+    padding: 0 16px 20px;
 }
 
-.AdminContainer table th, 
+.AdminContainer table {
+    width: 100%;
+    min-width: 980px;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.AdminContainer table thead {
+    background: #f3f9fb;
+}
+
+.AdminContainer table th,
 .AdminContainer table td {
-    padding: 10px; /* Añade espacio interno a las celdas */
-    border-bottom: 1px solid #ccc; /* Línea divisoria entre filas */
-    text-align: left; 
+    padding: 16px 14px;
+    text-align: left;
+    border-bottom: 1px solid #edf1f2;
+    vertical-align: middle;
 }
 
 .AdminContainer table th {
-    border-bottom: 2px solid #fff; /* Línea más gruesa en el encabezado */
+    color: var(--admin-primary);
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
-.img{
-    width: 100px;
-    height: 100px;
+.AdminContainer table tbody tr:hover {
+    background: #fafcfc;
+}
+
+.img {
+    width: 76px;
+    height: 76px;
     object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--admin-border);
 }
 
-#delete{
-    padding: 10px 15px;
-    color: #f4f4f4;
-    background-color: #676565;
-    border: none;
+.no-image {
+    display: inline-block;
+    padding: 8px 10px;
     border-radius: 10px;
+    background: #f5f5f5;
 }
 
-#delete img{
-    width: 25px;
-    height: 25px;
+#delete {
+    background: #fdecec;
+    color: var(--admin-danger);
 }
 
-#edit{
-    padding: 5px 10px;
-    color: #f4f4f4;
-    background-color: #676565;
-    border: none;
-    border-radius: 10px;
+#edit {
+    background: var(--admin-accent-soft);
+    color: #b97800;
 }
 
-#edit img{
-    width: 30px;
-    height: 30px;
+.empty-state {
+    margin: 16px;
+    padding: 36px 24px;
+    text-align: center;
+    border-radius: 14px;
+    background: #fafcfc;
+    border: 1px dashed var(--admin-border);
 }
 
-.Overlay2{
+#loading {
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--admin-primary);
+}
+
+.Overlay2 {
     position: fixed;
-    font-family: Arial, Helvetica, sans-serif;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+    inset: 0;
+    background: rgba(47, 59, 69, 0.45);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10;
 }
 
+@media (max-width: 1080px) {
+    .admin-shell {
+        grid-template-columns: 1fr;
+    }
 
+    .profile-card {
+        position: static;
+    }
 
+    .admin-header {
+        flex-direction: column;
+        align-items: start;
+    }
+}
+
+@media (max-width: 720px) {
+    .AdminContainer {
+        padding: 20px 14px 36px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+    }
+
+    .table-wrapper {
+        padding: 0 10px 16px;
+    }
+
+    .AdminContainer table {
+        min-width: 860px;
+    }
+}

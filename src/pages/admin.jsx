@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Form from "../components/form";
 import FormEdit from "../components/editForm";
 import Overlay from "../components/overlay";
+import UserPanel from "../components/UserPanel";
+import ProductTable from "../components/ProductTable";
 import { useAuth } from "../context/AuthContext";
 import "../styles/admin.css";
 
@@ -42,8 +44,8 @@ const AdminSection = () => {
         prevProducts.filter((product) => product._id !== id)
       );
       alert("producto eliminado exitosamente");
-    } catch (error) {
-      console.log(error.message);
+    } catch (deleteError) {
+      console.log(deleteError.message);
     }
   };
 
@@ -62,8 +64,8 @@ const AdminSection = () => {
 
         const data = await response.json();
         setProducts(data);
-      } catch (err) {
-        setError(err.message);
+      } catch (fetchError) {
+        setError(fetchError.message);
       } finally {
         setLoading(false);
       }
@@ -72,7 +74,7 @@ const AdminSection = () => {
     fetchProducts();
   }, [user?.id]);
 
-  if (loading) return <p id="loading">Cargando productos...</p>;
+  if (loading) return <p id="loading">Cargando panel...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -89,74 +91,32 @@ const AdminSection = () => {
       )}
 
       <div className="AdminContainer">
-        <aside>
-          <h2>Panel de Administracion</h2>
-          <button id="add" onClick={toggleForm}>
-            <img
-              src="/add_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png"
-              alt="add"
-            />
-            agregar producto
-          </button>
-        </aside>
+        <div className="admin-shell">
+          <UserPanel products={products} />
 
-        <section>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Imagen</th>
-                <th>Categoría</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Eliminar</th>
-                <th>Editar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.nombre}</td>
-                  <td>
-                    {product.imagenes?.[0] ? (
-                      <img
-                        className="img"
-                        src={cloudinaryUrl(product.imagenes[0])}
-                        alt="img"
-                      />
-                    ) : null}
-                  </td>
-                  <td>{product.categoria}</td>
-                  <td>{product.descripcion}</td>
-                  <td>{product.precio}</td>
-                  <td>{product.stock}</td>
-                  <td>
-                    <button
-                      id="delete"
-                      onClick={() => handleDeleteClick(product._id)}
-                    >
-                      <img
-                        src="/delete_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24 (1).png"
-                        alt="delete"
-                      />
-                    </button>
-                  </td>
-                  <td>
-                    <button id="edit" onClick={() => handleEditClick(product)}>
-                      <img
-                        src="/edit_note_24dp_E8EAED_FILL0_wght400_GRAD0_opsz24.png"
-                        alt="edit"
-                      />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
+          <main className="admin-main">
+            <header className="admin-header">
+              <div>
+                <p className="eyebrow">Administración</p>
+                <h1>Tus productos publicados</h1>
+                <p className="admin-subtitle">
+                  Gestiona los productos que agregaste y mantén actualizada tu información.
+                </p>
+              </div>
+
+              <button className="primary-btn add-product-btn" onClick={toggleForm}>
+                Agregar producto
+              </button>
+            </header>
+
+            <ProductTable
+              products={products}
+              cloudinaryUrl={cloudinaryUrl}
+              onDelete={handleDeleteClick}
+              onEdit={handleEditClick}
+            />
+          </main>
+        </div>
 
         {isEditing && (
           <Overlay

@@ -2,6 +2,7 @@ import '../styles/categorias.css'
 import Card from '../components/Cards'
 import { useState, useEffect } from 'react';
 import Loading from '../components/loading';
+import AdminButton from '../components/AdminButton';
 
 const Categorias = ()=>{
   const [products, setProducts] = useState([]);
@@ -127,6 +128,7 @@ const Categorias = ()=>{
                </div>
               </>
             }
+            <AdminButton/>
         </div>
     )
 }

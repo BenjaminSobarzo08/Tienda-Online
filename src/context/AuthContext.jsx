@@ -1,63 +1,82 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { RegisterRequest, LoginRequest, verifyToken } from '../api/auth'
-import Cookies from 'js-cookie'
+import {
+  RegisterRequest,
+  LoginRequest,
+  verifyToken,
+  UpdateProfileRequest,
+  LogoutRequest,
+} from "../api/auth";
+import Cookies from "js-cookie";
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 
-export const useAuth = ()=>{
-    const context = useContext(AuthContext)
-    if(!context){
-        throw new Error("useAuth debe ser usado con un AuthProvider")
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth debe ser usado con un AuthProvider");
+  }
+  return context;
+};
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const SignUp = async (userData) => {
+    try {
+      const res = await RegisterRequest(userData);
+      setUser(res);
+      setIsAuthenticated(true);
+      setErrors([]);
+    } catch (error) {
+      setErrors([error.message]);
     }
-    return context
-}
+  };
 
-export const AuthProvider = ({children})=>{
-    const [user, setUser] = useState(null)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [errors, setErrors] = useState([])
-    const [loading, setLoading] = useState(true);
-
-    const SignUp = async (user)=>{
-      try {
-        const res = await RegisterRequest(user)
-        console.log(res);
-        setUser(res)
-        setIsAuthenticated(true)
-        setErrors([])
-        } catch (error) {
-            setErrors(error.message)
-        }
+  const SignIn = async (userData) => {
+    try {
+      const res = await LoginRequest(userData);
+      setIsAuthenticated(true);
+      setUser(res);
+      setErrors([]);
+    } catch (error) {
+      setErrors([error.message]);
     }
+  };
 
-    const SignIn = async (user)=>{
-        try {
-            const res = await LoginRequest(user)
-            console.log(res);
-            setIsAuthenticated(true)
-            setUser(res)
-        } catch (error) {
-            /*if(Array.isArray(error.response.data)){
-                return setErrors(error.response.data)
-            }
-            setErrors([error.response.data.message])*/
-            setErrors([error.message])
-            
-            
-        }
+  const updateProfile = async (userData) => {
+    try {
+      const res = await UpdateProfileRequest(userData);
+      setUser(res.user);
+      setErrors([]);
+      return res;
+    } catch (error) {
+      setErrors([error.message]);
+      throw error;
     }
+  };
 
-    // Borra errores después de 5 segundos
-    useEffect(() => {
-        if (errors && errors.length > 0) { // ✅ Agregado check para evitar error
-            const timer = setTimeout(() => {
-                setErrors([]);
-            }, 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [errors]);
+  const logout = async () => {
+    try {
+      await LogoutRequest();
+    } finally {
+      setUser(null);
+      setIsAuthenticated(false);
+      setErrors([]);
+    }
+  };
 
-  // Revisa si hay un token en las cookies al cargar la app
+  useEffect(() => {
+    if (errors && errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
+
   useEffect(() => {
     const checkLogin = async () => {
       const cookies = Cookies.get();
@@ -66,17 +85,16 @@ export const AuthProvider = ({children})=>{
         setLoading(false);
         return;
       }
-  
+
       try {
         const res = await verifyToken();
-        console.log("Verificación de token:", res); // ✅ Verifica la respuesta
         if (!res) {
           setIsAuthenticated(false);
           setLoading(false);
           return;
         }
-  
-        setUser(res); // ✅ Guarda correctamente el usuario
+
+        setUser(res);
         setIsAuthenticated(true);
         setLoading(false);
       } catch (error) {
@@ -84,14 +102,24 @@ export const AuthProvider = ({children})=>{
         setLoading(false);
       }
     };
-  
+
     checkLogin();
   }, []);
-  
 
-    return(
-        <AuthContext.Provider value={{SignUp,SignIn, loading, user, isAuthenticated, errors}}>
-          {children}
-        </AuthContext.Provider>
-    )
-}
+  return (
+    <AuthContext.Provider
+      value={{
+        SignUp,
+        SignIn,
+        updateProfile,
+        logout,
+        loading,
+        user,
+        isAuthenticated,
+        errors,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};
