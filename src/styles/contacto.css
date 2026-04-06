@@ -1,4 +1,3 @@
-
 .ContactoContainer{
     display: flex;
     width: 100%;
@@ -6,6 +5,7 @@
     justify-content: center;
     align-items: center;
     font-family: Arial, Helvetica, sans-serif;
+    padding: 24px 16px;
 }
 
 .CardContact{
@@ -14,29 +14,43 @@
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
-    width: 500px;
-    height: 500px;
+    width: min(500px, 100%);
+    min-height: 500px;
     background: linear-gradient(45deg, #0780a3, #44cdf4, #91def3);
     border-radius: 30px;
+    padding: 24px 18px;
 }
 
 .CardContact h1{
     margin: 20px;
     color: #434040;
+    text-align: center;
 }
 
 .raw{
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 30px;
+    padding: 20px;
     text-decoration: underline;
+    gap: 14px;
+    overflow-wrap: anywhere;
 }
 
 .raw img{
     width: 30px;
     height: 30px;
-    margin: 30px;
+    margin: 0;
+    flex-shrink: 0;
 }
 
+@media (max-width: 560px) {
+    .CardContact{
+        min-height: auto;
+        border-radius: 20px;
+    }
 
+    .raw{
+        padding: 14px 10px;
+    }
+}

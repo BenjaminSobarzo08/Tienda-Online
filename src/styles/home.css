@@ -4,73 +4,87 @@
     min-height: 100vh;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     font-family: Arial, Helvetica, sans-serif;
-    overflow: hidden;
+    padding: 32px 16px 64px;
 }
 
 .head{
-    position: absolute;
-    top: 15%;
-    margin: 3%;
     color: gray;
     display: flex;
-    width: 100%;
+    width: min(1200px, 100%);
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
+    margin-bottom: 28px;
 }
+
 .head h1{
-    width: 15%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 30px;
 }
+
 .box-container{
-    position: absolute;
-    top: 35%;
-    width: 100%;
+    width: min(1240px, 100%);
 }
+
 .ProductsContainer{
     display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 20px; 
-    max-width: 1200px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
     width: 100%;
-    padding: 10px;
-    margin: 30px;
+    max-width: 1200px;
+    padding: 10px 0;
     font-family: Arial, Helvetica, sans-serif;
+    justify-items: center;
 }
+
 .SinResultado{
     display: flex;
     width: 100%;
-    position: absolute;
     align-items: center;
     justify-content: center;
+    padding: 40px 0;
 }
+
 .SinResultado h1{
     color: rgb(111, 109, 109);
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
+
 @media (max-width: 1240px) {
     .ProductsContainer {
-        grid-template-columns: repeat(3, 1fr); 
-        padding: 7px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
-@media (max-width: 1150px) {
-    .head{
-        flex-direction: column;
-    }
-    .head h1{
-        width: 100%;
-    }
-  
-}
+
 @media (max-width: 915px) {
+    .home-container{
+        padding-top: 24px;
+    }
+
+    .head{
+        justify-content: flex-start;
+    }
+
     .ProductsContainer {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 0;
-        
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .home-container{
+        padding-inline: 12px;
+    }
+
+    .head{
+        margin-bottom: 20px;
+    }
+
+    .ProductsContainer {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 }

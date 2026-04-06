@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react'
 import Card from '../components/Cards';
 import Loading from '../components/loading';
 import { useAuth } from '../context/AuthContext';
+import '../styles/home.css';
 
 const CarritoSection = ()=>{
   const [products, setProducts] = useState([]);

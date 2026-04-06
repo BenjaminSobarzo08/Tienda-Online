@@ -3,6 +3,7 @@ import '../styles/product.css'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Loading from '../components/loading';
+import AdminButton from '../components/AdminButton';
 
 
 const ProductSection = ()=>{
@@ -40,6 +41,7 @@ const ProductSection = ()=>{
         <div className="ProductContainer">
          <ProductCard
           id={product._id}
+          usuario={product.userName || product.usuario?.userName}
           imagenes={product.imagenes} 
           nombre={product.nombre}
           categoria={product.categoria}
@@ -47,6 +49,7 @@ const ProductSection = ()=>{
           precio={product.precio}
           stock={product.stock}
           />
+          <AdminButton/>
         </div>
     )
 }

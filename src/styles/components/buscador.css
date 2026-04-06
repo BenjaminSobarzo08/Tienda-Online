@@ -1,71 +1,114 @@
 .buscador{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
-    width: 50%;
+    width: min(620px, 100%);
 }
 
 .title{
-    width: 80%;
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    text-align: left;
 }
 
 .title img{
-    width: 50px;
-    height: 50px;
+    width: 44px;
+    height: 44px;
 }
+
 .title span{
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+
 }
+
 .formulario{
     display: flex;
-    width: 80%;
+    width: 100%;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .form{
-    padding: 5px 10px;
-    font-size: 0.8rem;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    flex: 1 1 180px;
+    min-width: 0;
+    border-radius: 0.5rem;
 }
 
 .formulario button{
-    padding: 5px 8px;
+    padding: 10px 14px;
     background-color: orange;
     color: #f4f4f4;
     border: 1px solid #f4f4f4;
     cursor: pointer;
-}
-
-@media (max-width: 1150px) {
-    .buscador{
-        width: 100%;
-    }
+    border-radius: 10px;
 }
 
 @media (max-width: 770px){
+    .buscador{
+        width: min(420px, 100%);
+    }
+
+    .title img{
+        width: 34px;
+        height: 34px;
+    }
+
+    .title span{
+        font-size: 1rem;
+    }
+
     .formulario{
       flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
     }
+
     .form{
-        width: 80%;
-        margin: 15px;
+        width: min(280px, 100%);
+        margin: 0;
+        padding: 8px 10px;
+        font-size: 0.9rem;
+        flex: 0 0 auto;
     }
+
     .formulario button{
-        width: 60%;
-        padding: 7px;
-        border-radius: 10px;
+        width: min(180px, 100%);
+        padding: 8px 12px;
+        font-size: 0.9rem;
     }
-    .title{
+}
+
+@media (max-width: 480px){
+    .buscador{
         width: 100%;
-        justify-content: center;
     }
-    .title span{
-        font-size: 1.3rem;
+
+    .title{
+        gap: 8px;
     }
+
     .title img{
-        width: 40px;
-        height: 40px;
+        width: 28px;
+        height: 28px;
+    }
+
+    .title span{
+        font-size: 0.95rem;
+    }
+
+    .formulario{
+        width: 100%;
+    }
+
+    .form,
+    .formulario button{
+        width: 100%;
     }
 }

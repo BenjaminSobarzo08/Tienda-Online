@@ -1,40 +1,71 @@
-
-  /* Estilo del formulario centrado */
-  .form-container {
+.form-container {
     background-color: white;
     padding: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     z-index: 11;
-    width: 500px;
-    height: 600px;
+    width: min(500px, 100%);
+    min-height: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-   /* margin-top: 120px; */
-  }
+    gap: 18px;
+}
 
-  .form-container form{
+.form-container form{
     width: 80%;
-    height: 60%;
+    min-height: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-  }
+    gap: 12px;
+}
 
-  .input{
+.input{
     padding: 10px;
     font-size: 1rem;
-  }
-  .form-container form button{
-    padding: 5px 10px;
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 8px;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-error{
+    border-color: #d94a4a;
+    background-color: #fff0f0;
+    box-shadow: 0 0 0 2px rgba(217, 74, 74, 0.12);
+}
+
+.input-help{
+    margin: -4px 0 0;
+    font-size: 0.85rem;
+    color: #6b6b6b;
+}
+
+.input-help-error{
+    color: #d94a4a;
+}
+
+.form-container form button{
+    padding: 10px 14px;
     background-color: rgb(46, 216, 12);
     color: #f4f4f4;
     border-radius: 30px;
     border: none;
     font-size: 1rem;
-  }
+}
 
-  #cerrar{
-    padding: 5px 10px;
-  }
+#cerrar{
+    padding: 8px 14px;
+}
+
+@media (max-width: 560px) {
+    .form-container{
+        min-height: auto;
+        padding: 18px 14px;
+    }
+
+    .form-container form{
+        width: 100%;
+    }
+}

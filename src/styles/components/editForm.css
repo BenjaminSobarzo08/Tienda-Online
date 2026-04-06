@@ -1,39 +1,122 @@
 .CardEdit{
-    padding: 1rem 1rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 40%;
-    height: 700px;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: min(720px, 90%);
+    max-height: 85vh;
     margin: 0 auto;
     background-color: #f4f4f4;
     padding: 30px 20px;
+    overflow: hidden;
 }
 
 .formEdit{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: flex-start;
     width: 100%;
-    height: 100%;
+    min-height: 0;
     font-size: 1rem;
-    overflow-y: auto; 
-    padding-right: 10px; 
+    overflow-y: auto;
+    padding-right: 10px;
+    gap: 16px;
 }
 
 .formEdit label{
-    display: flex;
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
     font-size: 1rem;
     width: 100%;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    gap: 16px;
+    margin: 0;
+}
+
+.formEdit h3{
+    font-size: 1rem;
+    margin: 0;
+    min-width: 110px;
 }
 
 .input-edit{
-    padding: 10px 30px;
-    margin-left: 30px;
+    padding: 10px 14px;
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    display: block;
+}
+
+.formEdit textarea.input-edit{
+    min-height: 110px;
+    resize: vertical;
+}
+
+.image-editor{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.image-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.image-card{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #d6d6d6;
+}
+
+.image-card img{
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.image-card-remove{
+    border-color: #d94a4a;
+    background: #fff0f0;
+}
+
+.image-action{
+    padding: 8px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.remove-image-btn{
+    background: #d94a4a;
+    color: #ffffff;
+}
+
+.image-help{
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6b6b6b;
+}
+
+.text-limit{
+    width: 100%;
+    text-align: right;
+}
+
+.edit-error{
+    width: 100%;
+    margin: 0;
+    color: #d94a4a;
+    font-size: 0.95rem;
 }
 
 .buttons{
@@ -41,12 +124,35 @@
     width: 100%;
     align-items: center;
     justify-content: space-around;
+    gap: 12px;
 }
 
 .buttons button{
-    padding: 10px 30px;
+    padding: 10px 24px;
     background-color: #2e7ac1;
     color: #f4f4f4;
     border: none;
     border-radius: 1rem;
+}
+
+@media (max-width: 640px) {
+    .CardEdit{
+        padding: 20px 14px;
+        width: min(720px, 100%);
+        max-height: 88vh;
+    }
+
+    .formEdit label{
+        flex-direction: column;
+        align-items: stretch;
+        display: flex;
+    }
+
+    .buttons{
+        flex-direction: column;
+    }
+
+    .buttons button{
+        width: 100%;
+    }
 }

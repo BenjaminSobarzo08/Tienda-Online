@@ -36,10 +36,10 @@ const ProductTable = ({
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.nombre}</td>
-                  <td>{product.usuario?.userName || "Sin usuario"}</td>
-                  <td>
+                  <td data-label="ID">{product._id}</td>
+                  <td data-label="Nombre">{product.nombre}</td>
+                  <td data-label="Usuario">{product.usuario?.userName || "Sin usuario"}</td>
+                  <td data-label="Imagen">
                     {product.imagenes?.[0] ? (
                       <img
                         className="img"
@@ -50,16 +50,16 @@ const ProductTable = ({
                       <span className="no-image">Sin imagen</span>
                     )}
                   </td>
-                  <td>{product.categoria}</td>
-                  <td>{product.descripcion}</td>
-                  <td>${product.precio}</td>
-                  <td>{product.stock}</td>
-                  <td>
+                  <td data-label="Categoría">{product.categoria}</td>
+                  <td data-label="Descripción">{product.descripcion}</td>
+                  <td data-label="Precio">${product.precio}</td>
+                  <td data-label="Stock">{product.stock}</td>
+                  <td data-label="Eliminar">
                     <button id="delete" onClick={() => onDelete(product._id)}>
                       Eliminar
                     </button>
                   </td>
-                  <td>
+                  <td data-label="Editar">
                     <button id="edit" onClick={() => onEdit(product)}>
                       Editar
                     </button>

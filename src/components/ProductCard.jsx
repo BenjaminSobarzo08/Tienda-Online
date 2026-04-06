@@ -6,7 +6,7 @@ import Carousel from './carusel';
 import Loading from './loading';
 import { useAuth } from '../context/AuthContext'
 
-const ProductCard = ({id,imagenes, nombre, categoria, precio, descripcion, stock: initialStock})=>{
+const ProductCard = ({id,usuario,imagenes, nombre, categoria, precio, descripcion, stock: initialStock})=>{
     const [product, setProduct] = useState([]);
     const [stock, setStock] = useState(initialStock);
     const [loading, setLoading] = useState(true);
@@ -133,6 +133,8 @@ const ProductCard = ({id,imagenes, nombre, categoria, precio, descripcion, stock
      if (loading) return <Loading/>;
      if (error) return <p>{error}</p>;
      if (!product) return null;
+
+    const publishedBy = usuario || product?.userName || product?.usuario?.userName || "Usuario desconocido";
     return(
         <div className="cardContainer">
             <section>
@@ -140,6 +142,7 @@ const ProductCard = ({id,imagenes, nombre, categoria, precio, descripcion, stock
             </section>
             <aside>
                 <h1 id='nombre'>{nombre}</h1>
+                <p>Publicado por: {publishedBy}</p>
                 <span id='categoriaCard'>{categoria}</span>
                 <h1 id='precio'>${precio}</h1>
                 <p id='descripcion'>{descripcion}</p>
