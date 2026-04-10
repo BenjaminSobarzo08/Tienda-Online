@@ -5,6 +5,7 @@ import Overlay from "../components/overlay";
 import UserPanel from "../components/UserPanel";
 import ProductTable from "../components/ProductTable";
 import { useAuth } from "../context/AuthContext";
+import { apiFetch } from "../api/config.js";
 import "../styles/admin.css";
 
 const AdminSection = () => {
@@ -33,9 +34,8 @@ const AdminSection = () => {
 
   const handleDeleteClick = async (id) => {
     try {
-      const res = await fetch(`/api/productos/${id}`, {
+      const res = await apiFetch(`/api/productos/${id}`, {
         method: "DELETE",
-        credentials: "include",
       });
 
       if (!res.ok) throw new Error("error al eliminar producto");
@@ -56,9 +56,7 @@ const AdminSection = () => {
           return;
         }
 
-        const response = await fetch(`/api/productos?usuarioId=${user.id}`, {
-          credentials: "include",
-        });
+        const response = await apiFetch(`/api/productos?usuarioId=${user.id}`);
 
         if (!response.ok) throw new Error("Error al obtener los productos");
 

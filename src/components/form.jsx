@@ -1,5 +1,6 @@
 import '../styles/components/form.css';
 import { useState } from 'react';
+import { apiFetch } from '../api/config.js';
 
 const Form = ({ toggleFunction, onProductCreated }) => {
   const MAX_IMAGENES = 5;
@@ -76,10 +77,9 @@ const Form = ({ toggleFunction, onProductCreated }) => {
     }
 
     try {
-      const response = await fetch('/api/productos', {
+      const response = await apiFetch('/api/productos', {
         method: 'POST',
         body: formData,
-        credentials: 'include',
       });
 
       if (response.ok) {

@@ -3,6 +3,7 @@ import Card from '../components/Cards';
 import Loading from '../components/loading';
 import { useAuth } from '../context/AuthContext';
 import '../styles/home.css';
+import { apiFetch } from '../api/config.js';
 
 const CarritoSection = ()=>{
   const [products, setProducts] = useState([]);
@@ -14,7 +15,7 @@ const CarritoSection = ()=>{
     // Función para obtener todos los productos
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`/api/users/${user.id}/carrito`);
+        const response = await apiFetch(`/api/users/${user.id}/carrito`);
         if (!response.ok) {
           throw new Error("Error al obtener los productos");
         }

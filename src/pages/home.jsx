@@ -4,6 +4,7 @@ import Buscador from '../components/buscador';
 import Loading from '../components/loading';
 import AdminButton from '../components/AdminButton';
 import { useState, useEffect } from "react";
+import { apiFetch } from '../api/config.js';
 
 const Home = () => {
     //const [products, setProducts] = useState([]);
@@ -14,7 +15,7 @@ const Home = () => {
         // Función para obtener los productos desde el backend
         const fetchProducts = async () => {
             try {
-                const response = await fetch("/api/productos");
+                const response = await apiFetch("/api/productos");
                 if (!response.ok) {
                     throw new Error("Error al obtener los productos");
                 }

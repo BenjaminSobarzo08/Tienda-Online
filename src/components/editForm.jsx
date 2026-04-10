@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/components/editForm.css";
+import { apiFetch } from "../api/config.js";
 
 const MAX_IMAGENES = 5;
 const MAX_NOMBRE = 60;
@@ -87,10 +88,9 @@ const FormEdit = ({ editingProduct, setProducts, products, closeForm }) => {
         dataToSend.append("imagenes", image);
       });
 
-      const response = await fetch(`/api/productos/${formData._id}`, {
+      const response = await apiFetch(`/api/productos/${formData._id}`, {
         method: "PUT",
         body: dataToSend,
-        credentials: "include",
       });
 
       if (!response.ok) throw new Error("Error al actualizar el producto");

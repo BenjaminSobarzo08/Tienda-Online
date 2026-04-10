@@ -1,5 +1,6 @@
 import '../styles/components/buscador.css';
 import { useState } from 'react';
+import { apiFetch } from '../api/config.js';
 
 const Buscador = ({ setProductosFiltrados }) => {
     const [min, setMin] = useState("");
@@ -16,7 +17,7 @@ const Buscador = ({ setProductosFiltrados }) => {
         console.log("URL de búsqueda:", url); 
         // Aquí puedes hacer la solicitud a tu backend
         try {
-            const response = await fetch(`/api/productos?categoria=${categoria}&precioMin=${min}&precioMax=${max}`);
+            const response = await apiFetch(`/api/productos?categoria=${categoria}&precioMin=${min}&precioMax=${max}`);
             const data = await response.json();
 
             // Actualiza el estado de productos filtrados en el componente padre

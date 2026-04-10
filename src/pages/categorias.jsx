@@ -3,6 +3,7 @@ import Card from '../components/Cards'
 import { useState, useEffect } from 'react';
 import Loading from '../components/loading';
 import AdminButton from '../components/AdminButton';
+import { apiFetch } from '../api/config.js';
 
 const Categorias = ()=>{
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const Categorias = ()=>{
     // Función para obtener los productos desde el backend
     const fetchProducts = async () => {
       try {
-        const response = await fetch("/api/productos");
+        const response = await apiFetch("/api/productos");
         if (!response.ok) {
           throw new Error("Error al obtener los productos");
         }

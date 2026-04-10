@@ -5,6 +5,7 @@ import { jsPDF } from 'jspdf';
 import Carousel from './carusel';
 import Loading from './loading';
 import { useAuth } from '../context/AuthContext'
+import { apiFetch } from '../api/config.js';
 
 const ProductCard = ({id,usuario,imagenes, nombre, categoria, precio, descripcion, stock: initialStock})=>{
     const [product, setProduct] = useState([]);
@@ -21,7 +22,7 @@ const ProductCard = ({id,usuario,imagenes, nombre, categoria, precio, descripcio
     useEffect(() => {
         const fetchProduct = async () => {
           try {
-            const response = await fetch(`/api/productos/${id}`);
+            const response = await apiFetch(`/api/productos/${id}`);
             if (!response.ok) {
               throw new Error("Error al obtener el producto");
             }
@@ -48,7 +49,7 @@ const ProductCard = ({id,usuario,imagenes, nombre, categoria, precio, descripcio
     const toggleCarrito = async () => {
         if (!onCarrito) {
           try {
-            const response = await fetch(`/api/users/${user.id}/carrito`, {
+            const response = await apiFetch(`/api/users/${user.id}/carrito`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ productoId: id})
@@ -64,7 +65,7 @@ const ProductCard = ({id,usuario,imagenes, nombre, categoria, precio, descripcio
           }
         }else{
           try {
-            const response = await fetch(`/api/users/${user.id}/carrito`, {
+            const response = await apiFetch(`/api/users/${user.id}/carrito`, {
               method: 'PUT',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ productoId: id })
@@ -109,7 +110,7 @@ const ProductCard = ({id,usuario,imagenes, nombre, categoria, precio, descripcio
 
             try {
                 // Enviar la actualización del stock al backend
-                const response = await fetch(`/api/productos/${id}`, {
+                const response = await apiFetch(`/api/productos/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ stock: nuevoStock })

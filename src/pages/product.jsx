@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Loading from '../components/loading';
 import AdminButton from '../components/AdminButton';
+import { apiFetch } from '../api/config.js';
+
 
 
 const ProductSection = ()=>{
@@ -19,7 +21,7 @@ const ProductSection = ()=>{
     useEffect(()=>{
         const getProduct = async ()=>{
             try {
-                const response = await fetch(`/api/productos/${id}`);
+                const response = await apiFetch(`/api/productos/${id}`);
                 if (!response.ok) {
                   throw new Error("Error al obtener los productos");
                 }

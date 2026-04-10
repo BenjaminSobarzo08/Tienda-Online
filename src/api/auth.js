@@ -1,5 +1,6 @@
 import axios from './axios.js';
 
+
 export const RegisterRequest = async (user) => {
   try {
     const response = await axios.post('/api/register', user);
