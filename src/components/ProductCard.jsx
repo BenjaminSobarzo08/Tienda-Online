@@ -103,31 +103,23 @@ const ProductCard = ({id,usuario,imagenes, nombre, categoria, precio, descripcio
 
     // Confirmación de la compra
     const confirmPurchase = async() => {
-        if (stock > 0) {
-            // Disminuir el stock localmente
-            const nuevoStock = stock - 1;
-            setStock(nuevoStock);
+        try {
+            const response = await apiFetch(`/api/productos/${id}/comprar`, {
+                method: 'POST'
+            });
+            const data = await response.json();
 
-            try {
-                // Enviar la actualización del stock al backend
-                const response = await apiFetch(`/api/productos/${id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ stock: nuevoStock })
-                });
-
-                if (!response.ok) {
-                    throw new Error("Error al actualizar el stock");
-                }
-            } catch (error) {
-                console.error("Error al actualizar el stock en el servidor", error);
+            if (!response.ok) {
+                throw new Error(data.message || "No se pudo confirmar la compra");
             }
 
-            downloadReceipt(); // Descargar el PDF
-            setIsModalOpen(false); // Cerrar el modal
+            setStock(data.producto.stock);
+            downloadReceipt();
+            setIsModalOpen(false);
             navigate('/');
-        } else {
-            alert("Stock insuficiente");
+        } catch (error) {
+            console.error("Error confirmando la compra", error);
+            alert(error.message);
         }
     };
 
